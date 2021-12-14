@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRegister</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/signup.css">
+
+</head>
+
+<body>
+    {{> navbar }}
+    {{!-- <div style="text-align: center; margin-top: 150px;">
+        <h1 style="margin-bottom: 20px;">Admin Register</h1>
+        <form action="/Tregister" method="post">
+            <label for="user">Username</label>
+            <input required type="text" name="Username" id="user" placeholder="shooter">
+            <br>
+            <label for="email"> Email</label>
+            <input required type="email" name="Email" id="email" placeholder="abc@gmail.com">
+            <br>
+            <label for="mobno">Phone Number</label>
+            <input required type="tel" name="Phoneno" id="mobno" placeholder="941699XXXX">
+            <br>
+            <label for="password">Password</label>
+            <input required type="password" name="Password" id="password" placeholder="Enter password">
+            <br>
+            <label for="confirm">Confirm Password</label>
+            <input required type="password" name="Confirm" id="confirm" placeholder="Re Enter Password">
+            <br>
+
+            <input type="Submit" name="Register">
+        </form> --}}
+
+        <div class="container text-center main-div">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-sm-6 col-md-6">
+
+                    <!-- action="/login_signup/register" method="POST" -->
+                    <form class="form-div" id="form" action="/Tregister" method="post">
+
+                        <h2 class="mb-4">ADMIN SIGNUP</h2>
+                        <div class="form-group">
+                            <input required type="text" name="Username" id="user" class="form-control"
+                                placeholder="UserName">
+                        </div>
+
+                        <div class="form-group">
+                            <input required type="email" name="Email" id="email" class="form-control"
+                                placeholder="Email Id">
+                        </div>
+
+                        <div class="form-group">
+                            <input required type="tel" name="Phoneno" id="mobno" class="form-control"
+                                placeholder="ContactNo">
+                        </div>
+
+                        <div class="form-group">
+                            <input required type="password" name="Password" id="password" class="form-control"
+                                placeholder="Password">
+                        </div>
+
+                        <div class="form-group">
+                            <input required value="" name="Confirm" id="confirm" id="confirm-password"
+                                class="form-control" placeholder="Confirm Password">
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button class="btn btn-primary btn-block" type="submit" value="Submit" type="Submit"
+                                name="Register" id="submit-btn">Submit</button>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <p>Already Have an Account. <a href="/admin/teacherLogin">Login Here</a></p>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

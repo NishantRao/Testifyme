@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <header><h5><strong> OurApp</strong></h5></header>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+            <li class="nav-item ml-4">
+                <a class="nav-item nav-link text-dark" href="/TDashboard"> <strong>Dashboard</strong></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item nav-link text-dark" href="/Aboutus"> <strong>Aboutus</strong></a>
+            </li>
+        </ul>
+      <ul class="navbar-nav">
+            {{#if User.Username }}
+                  <li class="nav-item">
+                      <img src="https://media.istockphoto.com/vectors/male-profile-flat-blue-simple-icon-with-long-shadow-vector-id522855255?k=20&m=522855255&s=612x612&w=0&h=fLLvwEbgOmSzk1_jQ0MgDATEVcVOh_kqEe0rqi7aM5A=" alt=""  width="50px" height="50px"
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-item nav-link text-dark" href="/profile"><strong>{{User.Username}}</strong></a>
+                  </li>
+              {{else}}
+                 <li class="nav-item">
+                  <a class="nav-item nav-link text-dark" href="/"><strong>SLogin</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-item nav-link text-dark" href="/Sregister"> <strong>SRegister</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-item nav-link text-dark" href="/Tlogin"><strong>TLogin</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-item nav-link text-dark" href="/Tregister"> <strong>TRegister</strong></a>
+                </li>
+              {{/if}}
+        </ul>
+    </div>
+</nav>
+

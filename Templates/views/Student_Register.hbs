@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/studentRegister.css">
+
+
+</head>
+
+<body>
+    {{>navbar}}
+
+    <div class="container text-center main-div">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-sm-6 col-md-6">
+
+                <!-- action="/login_signup/register" method="POST" -->
+                <form class="form-div" id="form" action="/Sregister" method="post">
+
+                    <h2 class="mb-4">STUDENT SIGNUP</h2>
+                    <div class="form-group">
+                        <input required type="text" name="Username" id="user" class="form-control"
+                            placeholder="UserName">
+                    </div>
+
+                    <div class="form-group">
+                        <input required type="email" name="Email" id="email" class="form-control"
+                            placeholder="Email Id">
+                    </div>
+
+                    <div class="form-group">
+                        <input required type="tel" name="Phoneno" id="mobno" class="form-control"
+                            placeholder="ContactNo">
+                    </div>
+
+                    <div class="form-group">
+                        <input required type="password" name="Password" id="password" class="form-control"
+                            placeholder="Password">
+                    </div>
+
+                    <div class="form-group">
+                        <input required type="password" name="Confirm" id="confirm" id="confirm-password" class="form-control"
+                            placeholder="Confirm Password">
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <button class="btn btn-primary btn-block" type="submit" value="Submit" type="Submit"
+                            name="Register" id="submit-btn">Submit</button>
+                    </div>
+                    <div class="form-group mt-4">
+                        <p>Already Have an Account. <a href="/admin/studentLogin">Login Here</a></p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
