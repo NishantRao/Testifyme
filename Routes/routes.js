@@ -5,13 +5,13 @@ const router = express.Router();
 const Student = require("../src/Schemas/Studentschema");
 const Teacher = require("../src/Schemas/Teacher_schema");
 
+const File = require("../src/Schemas/Fileschema");
+
 const Tauth = require("../Middleware/auth");
 const Sauth = require("../Middleware/Sauth")
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const User = require("../src/Schemas/Studentschema");
-const store = require("store");
 
 router.get("/",(req,res) =>{
     res.render("Student_login");
@@ -119,7 +119,7 @@ router.post("/Tlogin",async(req,res) =>{
 
             res.cookie("jwt",token)
             if (matchpass){
-                res.redirect("/TDashboard");
+                res.redirect("/classdetail");
             }else{
                 res.send("Please enter Correct Details")
             }
@@ -127,6 +127,19 @@ router.post("/Tlogin",async(req,res) =>{
     }catch(err){
         console.log(err);
     }
+})
+
+router.get("/classdetail",Tauth,async(req,res) =>{
+    res.render("Classdetail")
+})
+
+router.post("/classdetail",Tauth,async(req,res)=>{
+    console.log(req.id);
+    const Curteacher = await Teacher.findOne({_id : req.id})
+    Curteacher.Subject = req.body.Subject;
+    Curteacher.Class_Code = req.body.Class_Code;
+    await Curteacher.save();
+    res.redirect("/TDashboard");
 })
 
 router.get("/Aboutus",(req,res) =>{
@@ -137,7 +150,7 @@ router.get("/TDashboard",Tauth ,(req,res) =>{
     res.render("Teacher_dashboard");
 })
 
-router.get("/admin/addNotes",Tauth,(req,res) =>{
+router.get("/CreateTest",Tauth,(req,res) =>{
     res.render("Admin_Add_Test");
 })
 
@@ -175,11 +188,10 @@ router.post("/CreateQues/:pin",Tauth,async(req,res) =>{
     }
     Curuser.tests[curindex].questions = Curuser.tests[curindex].questions.concat(Quesobj);
     await  Curuser.save();
-    res.send("Ques accepted")
+    res.redirect(`/CreateQues/${pin}`)
 })
 
 router.get("/studentdashboard",Sauth,(req,res) =>{
-    console.log(" S dashboard");
     res.render("Student_dashboard");
 })
 
@@ -227,8 +239,82 @@ router.post("/:classcode/Test",Sauth,async(req,res) =>{
     // res.send()
 })
 
+router.get("/profile",(req,res) =>{
+    res.render("Profile");
+})
 
 
+// *********************** For Notes Section 
+
+const multer = require("multer");
+const multerStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "MyFiles");
+    },
+    filename: (req, file, cb) => {
+      const ext = file.mimetype.split("/")[1];
+      cb(null, `files/${file.originalname}`);
+    },
+  });
+
+const multerFilter = (req, file, cb) => {
+    if (file.mimetype.split("/")[1] === "pdf") {
+      cb(null, true);
+    } else {
+      cb(new Error("Not a PDF File!!"), false);
+    }
+  };
+router.get("/AddNotes",Tauth,async(req,res) =>{
+    res.render("AddNotes");
+})
+
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFilter,
+  });
+
+router.post("/AddNotes",Tauth,upload.single("myfile"),async(req,res)=>{
+    const Curteacher = await   Teacher.findOne({_id: req.id});
+    try {
+        const newFile = await File.create({
+            Teacher : Curteacher.Email,
+            name: req.file.filename
+        });
+        res.status(200).json({
+          status: "success",
+          message: "File created successfully!!",
+        });
+      } catch (error) {
+        res.json({
+          error,
+        });
+      }
+})
+
+
+//     For showing Notes to Student 
+router.get("/:classcode/myNotes", Sauth, async (req, res) => {
+    try {
+        const cur_classcode = req.params.classcode;
+        const cur_teacher = await Teacher.findOne({Class_Code:cur_classcode});
+        const files = await File.find({Teacher:cur_teacher.Email});
+        // const file = fs.createReadStream("/Clg_Project/MyFiles/files/TEST.pdf");
+        // const stat = fs.statSync("/Clg_Project/MyFiles/files/TEST.pdf");
+        // res.setHeader('Content-Length', stat.size);
+        // res.setHeader('Content-Type', 'application/pdf');
+        // res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+        // file.pipe(res);
+        // var data =fs.readFileSync("/Clg_Project/MyFiles/files/TEST.pdf");
+        // res.contentType("application/pdf");
+        // res.send(data);
+        res.render("Show_Notes",{files:files})
+    } catch (error) {
+      res.json({
+        status: "Fail",
+        error,
+      });
+    }
+  });
 
 // ********************** Multer 
 

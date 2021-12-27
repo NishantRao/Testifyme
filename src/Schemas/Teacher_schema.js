@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
-
 //  for validator 
 const validator = require("validator");
-
 // ******************* For bcrypt password
 const bcrypt = require("bcryptjs")
-
 // ***************** to generate token 
 const jwt = require("jsonwebtoken");
 

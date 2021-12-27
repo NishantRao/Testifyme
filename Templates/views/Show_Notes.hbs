@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
+    <title>Notes</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -15,18 +15,27 @@
 
 <body>
     {{>navbarDark}}
-        {{#each classes}}
+        {{#each files}}
         {{#each this}}
-        <a href="/{{this.Class_Code}}/entertest">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2> {{this.Username}}</h2>
-                    <h3> {{this.Subject}}</h3>
-                </div>
-            </div>
-        </a>
-        {{/each}}
-        {{/each}}
+        <div class="col-md-12">
+            <h2> {{this.name}}</h2>
+            <button onclick="Download({{this.name}})">Download this Pdf</button>
+        </div>
+    {{/each}}
+    {{/each}}
+
+    <script>
+        alert("Hello Guyss")
+        function Download( var x){
+            alert("Hello Guyss");
+        {{!-- const file = fs.createReadStream(`/Clg_Project/MyFiles/${x}`);
+        const stat = fs.statSync(`/Clg_Project/MyFiles/${x}`);
+        res.setHeader('Content-Length', stat.size);
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+        file.pipe(res); --}}
+        }
+    </script>
 </body>
 
 </html>

@@ -13,7 +13,7 @@ app.set("views",viewpath);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// ******************* for file upload
+// ******************* for cookie read
 const cookieparser = require("cookie-parser");
 app.use(cookieparser());
 //  for Partials 
@@ -23,6 +23,17 @@ hbs.registerPartials(partialpath);
 
 //  for public
 app.use(express.static('public'))
+
+//  For Notes section body parser 
+const bodyParser = require("body-parser");
+
+// Configurations for "body-parser"
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
 
 //  for routes 
 const router = require("../Routes/routes");
