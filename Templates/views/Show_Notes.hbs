@@ -14,28 +14,11 @@
 </head>
 
 <body>
-    {{>navbarDark}}
-        {{#each files}}
-        {{#each this}}
-        <div class="col-md-12">
+    {{>navbar}}
+    {{#each files}}
             <h2> {{this.name}}</h2>
-            <button onclick="Download({{this.name}})">Download this Pdf</button>
-        </div>
+            <a href="/download" class="btn btn-primary">Download this Pdf</a>
     {{/each}}
-    {{/each}}
-
-    <script>
-        alert("Hello Guyss")
-        function Download( var x){
-            alert("Hello Guyss");
-        {{!-- const file = fs.createReadStream(`/Clg_Project/MyFiles/${x}`);
-        const stat = fs.statSync(`/Clg_Project/MyFiles/${x}`);
-        res.setHeader('Content-Length', stat.size);
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
-        file.pipe(res); --}}
-        }
-    </script>
 </body>
 
 </html>

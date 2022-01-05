@@ -24,12 +24,10 @@ const Register = new mongoose.Schema({
     },
     Subject : {
         type:String,
-        required :true
     },
     Class_Code : {
         type: String,
         unique:true,
-        required:true
 
     },
     Phoneno : {

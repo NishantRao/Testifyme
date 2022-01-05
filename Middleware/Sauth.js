@@ -10,7 +10,7 @@ const Sauth = async(req,res,next) =>{
         req.id = user._id;
         next();
     }catch(err){
-        res.render("Login_Page")
+        res.render("student_login")
     }
 }
 module.exports = Sauth ;

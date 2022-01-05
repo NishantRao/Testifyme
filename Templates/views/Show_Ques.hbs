@@ -14,32 +14,33 @@
 </head>
 
 <body>
-    {{>navbarDark}}
-    <div>
-        <h2 id="ques"></h2>
-
-        {{!-- <div class="col-md-12">
-            <input type="radio" id="html" name="fav_language" value="HTML">
-            <label for="html">{{this.A}}</label><br>
-            <input type="radio" id="css" name="fav_language" value="CSS">
-            <label for="css">{{this.B}}</label><br>
-            <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-            <label for="javascript">{{this.C}}</label>
-            <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-            <label for="javascript">{{this.D}}</label>
-        </div> --}}
-    </div>
+    {{>navbar}}
     <div style="text-align: center;">
-        {{#each ques}}
-        {{#each this}}
-        <h2>{{this.Ques}}</h2>
-        <h6>{{this.A}}</h6>
-        <h6>{{this.B}}</h6>
-        <h6>{{this.C}}</h6>
-        <h6>{{this.D}}</h6>
-        {{/each}}
-        {{/each}}
-        <button class="btn btn-primary"> Submit Test</button>
+        <div class="col-md-12" style="background-color: rgb(216, 228, 228);">
+            <form action="/responses" method="post">
+            <script>var k =1;</script>
+            {{#each ques}}
+            <h2> {{this.Ques}}</h2>
+            <br>
+            <input type="radio" id="A" name="" value="a" >
+            <label for="A">{{this.A}}</label><br>
+            <input type="radio" id="B" name="" value="b" >
+            <label for="B">{{this.B}}</label><br>
+            <input type="radio" id="C" name="" value="c">
+            <label for="C">{{this.C}}</label><br>
+            <input type="radio" id="D" name="" value="d">
+            <label for="D">{{this.D}}</label><br>
+            <script>
+                document.getElementById("A").name = k
+                document.getElementById("B").name = k
+                document.getElementById("C").name = k
+                document.getElementById("D").name = k
+                k+=1;
+            </script>
+            {{/each}}
+             <button type="submit" class="btn btn-primary"> Submit Test</button>
+             </form>
+        </div>
     </div>
 </body>
 

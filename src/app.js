@@ -33,8 +33,6 @@ app.use(
     extended: true,
   })
 );
-
-
 //  for routes 
 const router = require("../Routes/routes");
 const { urlencoded } = require('express');

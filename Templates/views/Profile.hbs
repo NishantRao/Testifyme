@@ -22,7 +22,7 @@
 </head>
 
 <body>
-  {{>navbarDark}}
+  {{>navbar}}
 
   {{!-- <div class="card mt-5 form-div" style="width: 18rem; text-align :center">
     <img class="card-img-top"
@@ -43,8 +43,10 @@
             src="https://media.istockphoto.com/vectors/male-profile-flat-blue-simple-icon-with-long-shadow-vector-id522855255?k=20&m=522855255&s=612x612&w=0&h=fLLvwEbgOmSzk1_jQ0MgDATEVcVOh_kqEe0rqi7aM5A="
             alt="Card image cap">
           <div class="card-body">
+            <h5 class="card-text mb-4">{{User.Username}}</h5>
             <h5 class="card-text mb-4">Email : {{User.Email}}</h5>
-            <a href="#" class="btn btn-primary btn-sm">Logout</a>
+            <h5 class="card-text mb-4">PhoneNo : {{User.Phoneno}}</h5>
+
           </div>
         </div>
       </div>

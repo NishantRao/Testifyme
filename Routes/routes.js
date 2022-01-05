@@ -119,7 +119,11 @@ router.post("/Tlogin",async(req,res) =>{
 
             res.cookie("jwt",token)
             if (matchpass){
-                res.redirect("/classdetail");
+                if (entry.Class_Code !=""){
+                    res.redirect('TDashboard')
+                }else{
+                    res.redirect("/classdetail");
+                }
             }else{
                 res.send("Please enter Correct Details")
             }
@@ -188,8 +192,12 @@ router.post("/CreateQues/:pin",Tauth,async(req,res) =>{
     }
     Curuser.tests[curindex].questions = Curuser.tests[curindex].questions.concat(Quesobj);
     await  Curuser.save();
-    res.redirect(`/CreateQues/${pin}`)
-})
+    if(req.body.button ==="Createnextques"){
+        res.redirect(`/CreateQues/${pin}`)
+    }else{
+        res.redirect("/TDashboard");
+    }
+});
 
 router.get("/studentdashboard",Sauth,(req,res) =>{
     res.render("Student_dashboard");
@@ -222,6 +230,11 @@ router.get("/myclasses",Sauth,async(req,res) =>{
     res.render("Joined_Classes",{classes : classes})
 })
 
+router.get("/:classcode/detail",Sauth,async(req,res)=>{
+    const cur_classcode = req.params.classcode;
+    res.render("Curclass",{classcode : cur_classcode})
+})
+
 router.get("/:classcode/entertest",Sauth,(req,res) =>{
     const cur_classcode = req.params.classcode;
     res.render("Enter_test",{classcode : cur_classcode})
@@ -239,7 +252,17 @@ router.post("/:classcode/Test",Sauth,async(req,res) =>{
     // res.send()
 })
 
-router.get("/profile",(req,res) =>{
+router.post("/responses",Sauth,async(req,res)=>{
+    console.log(req.body);
+    res.send("Response Accepted");
+})
+
+
+router.get("/profiles",Sauth,(req,res) =>{
+    res.render("Profile");
+})
+
+router.get("/profilet",Tauth,(req,res)=>{
     res.render("Profile");
 })
 
@@ -280,10 +303,7 @@ router.post("/AddNotes",Tauth,upload.single("myfile"),async(req,res)=>{
             Teacher : Curteacher.Email,
             name: req.file.filename
         });
-        res.status(200).json({
-          status: "success",
-          message: "File created successfully!!",
-        });
+        res.render("AddNotes");
       } catch (error) {
         res.json({
           error,
@@ -315,6 +335,16 @@ router.get("/:classcode/myNotes", Sauth, async (req, res) => {
       });
     }
   });
+
+const fs = require('fs');
+router.get("/download",async(req,res) =>{
+    const file = fs.createReadStream("/Clg_Project/MyFiles/files/TEST.pdf");
+    const stat = fs.statSync("/Clg_Project/MyFiles/files/TEST.pdf");
+    res.setHeader('Content-Length', stat.size);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+    file.pipe(res);
+})
 
 // ********************** Multer 
 
