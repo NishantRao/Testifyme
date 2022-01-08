@@ -246,17 +246,40 @@ router.post("/:classcode/Test",Sauth,async(req,res) =>{
     const cur_teacher = await Teacher.findOne({Class_Code:cur_classcode});
     for (let i = 0; i < cur_teacher.tests.length; i++) {
         if (User_pin === cur_teacher.tests[i].Testpin){
-            res.render("Show_Ques",{ques: cur_teacher.tests[i].questions})
+            res.render("Show_Ques",{ques: cur_teacher.tests[i].questions,cc : cur_classcode,up: User_pin})
         }
     }
-    // res.send()
+    // res.send("Please enter correct pin");
 })
 
-router.post("/responses",Sauth,async(req,res)=>{
-    console.log(req.body);
-    res.send("Response Accepted");
+router.post("/responses", Sauth, async(req, res) => {
+    try {
+        const x = req.body.ansArr;
+        const cur_teacher = await Teacher.findOne({Class_Code:x.cc});
+        let index =-1;
+        for(let i =0;i<cur_teacher.tests.length;i++){
+            if (cur_teacher.tests[i].Testpin==x.up){
+                index = i;
+                break;
+            }
+        }
+        let marks =0
+        for (let j=0;j<cur_teacher.tests[index].questions.length;j++){
+            if (x[j.toString()]){
+                if (cur_teacher.tests[index].questions[j].Ans==x[j.toString()]){
+                    marks+=1;
+                }
+            }
+        };
+        return res.status(200).send({ marks:marks ,total :cur_teacher.tests[index].questions.length })
+    } catch (error) {
+        res.send({ "error": error })
+    }
 })
 
+router.get("/result/:marks/:total",Sauth,async(req,res)=>{
+    res.render("view_result",{obtained : req.params.marks,total:req.params.total})
+});
 
 router.get("/profiles",Sauth,(req,res) =>{
     res.render("Profile");
